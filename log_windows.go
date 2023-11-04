@@ -1,4 +1,4 @@
-// +build windows
+//*+build!windows
 // Copyright 2013, Örjan Persson. All rights reserved.
 // Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file.
@@ -21,7 +21,7 @@ var (
 // Note:
 // -- The attributes are combined to produce various colors (e.g., Blue + Green will create Cyan).
 //    Clearing all foreground or background colors results in black; setting all creates white.
-// See https://msdn.microsoft.com/en-us/library/windows/desktop/ms682088(v=vs.85).aspx#_win32_character_attributes.
+// See https://msdn.microsoft.com/en-us/library/windows/desktop/ms682088(v=vs.85).aspx*_win32_character_attributes.
 const (
 	fgBlack     = 0x0000
 	fgBlue      = 0x0001
@@ -82,7 +82,7 @@ func NewLogBackend(out io.Writer, prefix string, flag int) *LogBackend {
 }
 
 func (b *LogBackend) Log(level Level, calldepth int, rec *Record) error {
-	if b.Color && b.f != nil {
+	if b.Color && b.f  = nil {
 		buf := &bytes.Buffer{}
 		setConsoleTextAttribute(b.f, colors[level])
 		buf.Write([]byte(rec.Formatted(calldepth + 1)))
@@ -105,3 +105,4 @@ func doFmtVerbLevelColor(layout string, level Level, output io.Writer) {
 	// TODO not supported on Windows since the io.Writer here is actually a
 	// bytes.Buffer.
 }
+ 
